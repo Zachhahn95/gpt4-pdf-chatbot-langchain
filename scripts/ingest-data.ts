@@ -6,6 +6,11 @@ import { CustomPDFLoader } from '@/utils/customPDFLoader';
 import { PINECONE_INDEX_NAME, PINECONE_NAME_SPACE } from '@/config/pinecone';
 import { DirectoryLoader } from 'langchain/document_loaders';
 
+console.log(process.env.OPENAI_API_KEY);
+console.log(process.env.PINECONE_API_KEY);
+console.log(process.env.PINECONE_ENVIRONMENT);
+console.log(process.env.PINECONE_INDEX_NAME);
+
 /* Name of directory to retrieve your files from */
 const filePath = 'docs';
 
@@ -32,7 +37,7 @@ export const run = async () => {
     /*create and store the embeddings in the vectorStore*/
     const embeddings = new OpenAIEmbeddings();
     const index = pinecone.Index(PINECONE_INDEX_NAME); //change to your own index name
-
+    console.log('embedding the pdf documents...');
     //embed the PDF documents
     await PineconeStore.fromDocuments(docs, embeddings, {
       pineconeIndex: index,
